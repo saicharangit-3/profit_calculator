@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Profit Calculator</title>
+  <title>HP Gas Profit & Salary Calculator</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- React + ReactDOM -->
@@ -11,7 +11,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-gradient-to-br from-[hsl(220,15%,10%)] to-[hsl(220,15%,15%)] text-[hsl(220,15%,85%)] min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-[#003366] via-[#0A3D91] to-[#E63946] min-h-screen flex items-center justify-center text-white font-sans">
 
   <div id="root"></div>
 
@@ -28,7 +28,7 @@
         const km = parseFloat(liters);
 
         if (isNaN(fc) || isNaN(t) || isNaN(km)) {
-          alert("Please fill all fields correctly!");
+          alert("⚠️ Please fill all fields correctly!");
           return;
         }
 
@@ -46,55 +46,67 @@
       };
 
       return (
-        <div className="bg-[hsl(220,15%,18%)] p-6 rounded-2xl shadow-2xl w-96 border border-[hsl(220,15%,25%)]">
-          <h2 className="text-2xl font-bold text-center text-[hsl(160,80%,65%)] mb-6">
-            Profit Calculator
-          </h2>
+        <div className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-[400px] border border-white/20">
+          {/* Header */}
+          <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-[#E63946] to-[#FFD23F] bg-clip-text text-transparent mb-6 drop-shadow-lg">
+            HP Gas Profit Calculator
+          </h1>
 
-          <label className="block mb-2 font-medium text-[hsl(220,15%,75%)]">Fixed Charge</label>
-          <input
-            type="number"
-            value={fixedCharge}
-            onChange={(e) => setFixedCharge(e.target.value)}
-            placeholder="e.g. 165000"
-            className="w-full px-3 py-2 mb-4 rounded-lg bg-[hsl(220,15%,22%)] border border-[hsl(220,15%,30%)] text-white focus:outline-none focus:ring-2 focus:ring-[hsl(160,80%,50%)]"
-          />
+          {/* Inputs */}
+          <div className="space-y-4">
+            <div>
+              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">Fixed Charge</label>
+              <input
+                type="number"
+                value={fixedCharge}
+                onChange={(e) => setFixedCharge(e.target.value)}
+                placeholder="e.g. 165000"
+                className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFD23F]"
+              />
+            </div>
 
-          <label className="block mb-2 font-medium text-[hsl(220,15%,75%)]">Number of Trips</label>
-          <input
-            type="number"
-            value={trips}
-            onChange={(e) => setTrips(e.target.value)}
-            placeholder="e.g. 20"
-            className="w-full px-3 py-2 mb-4 rounded-lg bg-[hsl(220,15%,22%)] border border-[hsl(220,15%,30%)] text-white focus:outline-none focus:ring-2 focus:ring-[hsl(160,80%,50%)]"
-          />
+            <div>
+              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">Number of Trips</label>
+              <input
+                type="number"
+                value={trips}
+                onChange={(e) => setTrips(e.target.value)}
+                placeholder="e.g. 20"
+                className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFD23F]"
+              />
+            </div>
 
-          <label className="block mb-2 font-medium text-[hsl(220,15%,75%)]">Petrol Liters</label>
-          <input
-            type="number"
-            value={liters}
-            onChange={(e) => setLiters(e.target.value)}
-            placeholder="e.g. 600"
-            className="w-full px-3 py-2 mb-4 rounded-lg bg-[hsl(220,15%,22%)] border border-[hsl(220,15%,30%)] text-white focus:outline-none focus:ring-2 focus:ring-[hsl(160,80%,50%)]"
-          />
+            <div>
+              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">Petrol Liters</label>
+              <input
+                type="number"
+                value={liters}
+                onChange={(e) => setLiters(e.target.value)}
+                placeholder="e.g. 600"
+                className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFD23F]"
+              />
+            </div>
+          </div>
 
+          {/* Button */}
           <button
             onClick={calculate}
-            className="w-full bg-[hsl(160,80%,40%)] hover:bg-[hsl(160,80%,35%)] text-white py-2 rounded-lg font-semibold transition duration-200"
+            className="w-full mt-6 bg-gradient-to-r from-[#E63946] to-[#FFD23F] text-[#0A3D91] py-2 rounded-xl font-bold text-lg shadow-md hover:scale-[1.02] transition transform duration-200"
           >
             Calculate
           </button>
 
+          {/* Results */}
           {result && (
-            <div className="mt-6 bg-[hsl(220,15%,22%)] p-4 rounded-xl border border-[hsl(220,15%,30%)]">
-              <p><strong>Hamali:</strong> ₹{result.hamali.toFixed(2)}</p>
-              <p><strong>Commission:</strong> ₹{result.com.toFixed(2)}</p>
-              <p><strong>Petrol Cost:</strong> ₹{result.petrolCost.toFixed(2)}</p>
-              <p><strong>Fastag:</strong> ₹{result.fastag.toFixed(2)}</p>
-              <p><strong>Total Expenses:</strong> ₹{result.expenses.toFixed(2)}</p>
-              <p>
-                <strong>Profit (after EMI):</strong>{" "}
-                <span className={result.profit >= 0 ? "text-[hsl(140,80%,65%)]" : "text-[hsl(0,80%,65%)]"}>
+            <div className="mt-6 bg-white/10 p-5 rounded-2xl border border-white/20 space-y-2">
+              <p><span className="font-semibold text-[#FFD23F]">Hamali:</span> ₹{result.hamali.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">Commission:</span> ₹{result.com.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">Petrol Cost:</span> ₹{result.petrolCost.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">Fastag:</span> ₹{result.fastag.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">Total Expenses:</span> ₹{result.expenses.toFixed(2)}</p>
+              <p className="pt-2 text-lg font-bold">
+                Profit (after EMI):{" "}
+                <span className={result.profit >= 0 ? "text-green-400" : "text-red-400"}>
                   ₹{result.profit.toFixed(2)}
                 </span>
               </p>
