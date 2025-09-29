@@ -6,12 +6,12 @@
   <title>Profit Calculator</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- React + ReactDOM (development builds for local HTML use) -->
+  <!-- React + ReactDOM -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-gradient-to-br from-green-50 to-blue-100 min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-br from-[hsl(220,15%,10%)] to-[hsl(220,15%,15%)] text-[hsl(220,15%,85%)] min-h-screen flex items-center justify-center">
 
   <div id="root"></div>
 
@@ -46,47 +46,47 @@
       };
 
       return (
-        <div className="bg-white p-6 rounded-2xl shadow-xl w-96">
-          <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">
+        <div className="bg-[hsl(220,15%,18%)] p-6 rounded-2xl shadow-2xl w-96 border border-[hsl(220,15%,25%)]">
+          <h2 className="text-2xl font-bold text-center text-[hsl(160,80%,65%)] mb-6">
             Profit Calculator
           </h2>
 
-          <label className="block mb-2 font-medium text-gray-600">Fixed Charge</label>
+          <label className="block mb-2 font-medium text-[hsl(220,15%,75%)]">Fixed Charge</label>
           <input
             type="number"
             value={fixedCharge}
             onChange={(e) => setFixedCharge(e.target.value)}
             placeholder="e.g. 165000"
-            className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-3 py-2 mb-4 rounded-lg bg-[hsl(220,15%,22%)] border border-[hsl(220,15%,30%)] text-white focus:outline-none focus:ring-2 focus:ring-[hsl(160,80%,50%)]"
           />
 
-          <label className="block mb-2 font-medium text-gray-600">Number of Trips</label>
+          <label className="block mb-2 font-medium text-[hsl(220,15%,75%)]">Number of Trips</label>
           <input
             type="number"
             value={trips}
             onChange={(e) => setTrips(e.target.value)}
             placeholder="e.g. 20"
-            className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-3 py-2 mb-4 rounded-lg bg-[hsl(220,15%,22%)] border border-[hsl(220,15%,30%)] text-white focus:outline-none focus:ring-2 focus:ring-[hsl(160,80%,50%)]"
           />
 
-          <label className="block mb-2 font-medium text-gray-600">Petrol Liters</label>
+          <label className="block mb-2 font-medium text-[hsl(220,15%,75%)]">Petrol Liters</label>
           <input
             type="number"
             value={liters}
             onChange={(e) => setLiters(e.target.value)}
             placeholder="e.g. 600"
-            className="w-full px-3 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full px-3 py-2 mb-4 rounded-lg bg-[hsl(220,15%,22%)] border border-[hsl(220,15%,30%)] text-white focus:outline-none focus:ring-2 focus:ring-[hsl(160,80%,50%)]"
           />
 
           <button
             onClick={calculate}
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg font-semibold transition duration-200"
+            className="w-full bg-[hsl(160,80%,40%)] hover:bg-[hsl(160,80%,35%)] text-white py-2 rounded-lg font-semibold transition duration-200"
           >
             Calculate
           </button>
 
           {result && (
-            <div className="mt-6 bg-gray-50 p-4 rounded-xl border">
+            <div className="mt-6 bg-[hsl(220,15%,22%)] p-4 rounded-xl border border-[hsl(220,15%,30%)]">
               <p><strong>Hamali:</strong> ₹{result.hamali.toFixed(2)}</p>
               <p><strong>Commission:</strong> ₹{result.com.toFixed(2)}</p>
               <p><strong>Petrol Cost:</strong> ₹{result.petrolCost.toFixed(2)}</p>
@@ -94,7 +94,7 @@
               <p><strong>Total Expenses:</strong> ₹{result.expenses.toFixed(2)}</p>
               <p>
                 <strong>Profit (after EMI):</strong>{" "}
-                <span className={result.profit >= 0 ? "text-green-600" : "text-red-600"}>
+                <span className={result.profit >= 0 ? "text-[hsl(140,80%,65%)]" : "text-[hsl(0,80%,65%)]"}>
                   ₹{result.profit.toFixed(2)}
                 </span>
               </p>
