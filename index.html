@@ -21,14 +21,49 @@
       const [trips, setTrips] = React.useState("");
       const [liters, setLiters] = React.useState("");
       const [result, setResult] = React.useState(null);
+      const [lang, setLang] = React.useState("en"); // default English
+
+      // Texts for both languages
+      const texts = {
+        en: {
+          title: "HP Gas Salary Calculator",
+          fixedCharge: "Fixed Charge",
+          trips: "Number of Trips",
+          liters: "Petrol Liters",
+          button: "Calculate",
+          hamali: "Hamali",
+          commission: "Commission",
+          petrol: "Petrol Cost",
+          fastag: "Fastag",
+          expenses: "Total Expenses",
+          profit: "Profit (after EMI)",
+          toggle: "తెలుగు"
+        },
+        te: {
+          title: "HP గ్యాస్ జీతం లెక్కింపు",
+          fixedCharge: "ఫిక్స్‌డ్ ఛార్జ్",
+          trips: "ప్రయాణాల సంఖ్య",
+          liters: "పెట్రోల్ లీటర్లు",
+          button: "లెక్కించు",
+          hamali: "హమాలి",
+          commission: "కమీషన్",
+          petrol: "పెట్రోల్ ఖర్చు",
+          fastag: "ఫాస్టాగ్",
+          expenses: "మొత్తం ఖర్చులు",
+          profit: "లాభం (EMI తర్వాత)",
+          toggle: "English"
+        }
+      };
+
+      const t = texts[lang];
 
       const calculate = () => {
         const fc = parseFloat(fixedCharge);
-        const t = parseInt(trips);
+        const tps = parseInt(trips);
         const km = parseFloat(liters);
 
-        if (isNaN(fc) || isNaN(t) || isNaN(km)) {
-          alert("⚠️ Please fill all fields correctly!");
+        if (isNaN(fc) || isNaN(tps) || isNaN(km)) {
+          alert(lang === "en" ? "⚠️ Please fill all fields correctly!" : "⚠️ దయచేసి అన్ని వివరాలు సరిగా నమోదు చేయండి!");
           return;
         }
 
@@ -36,7 +71,7 @@
         const coolie = 407;
         const litrePetrol = 96.59;
         const petrolCost = km * litrePetrol;
-        const hamali = t * coolie;
+        const hamali = tps * coolie;
         const fastag = 15000;
         const expenses = petrolCost + hamali + fastag;
         const emi = 30000;
@@ -47,42 +82,56 @@
 
       return (
         <div className="bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-[400px] border border-white/20">
+          
+          {/* Language Toggle */}
+          <div className="flex justify-end mb-2">
+            <button
+              onClick={() => setLang(lang === "en" ? "te" : "en")}
+              className="text-sm px-3 py-1 rounded-lg bg-gradient-to-r from-[#FFD23F] to-[#E63946] text-[#0A3D91] font-bold"
+            >
+              {t.toggle}
+            </button>
+          </div>
+
+      
+         
+
           {/* Header */}
-          <h1 className="text-3xl font-extrabold text-center bg-gradient-to-r from-[#E63946] to-[#FFD23F] bg-clip-text text-transparent mb-6 drop-shadow-lg">
-            HP Gas Profit Calculator
+          <h1 className="text-2xl font-extrabold text-center bg-gradient-to-r from-[#E63946] to-[#FFD23F] bg-clip-text text-transparent mb-6 drop-shadow-lg">
+            {t.title}
           </h1>
 
           {/* Inputs */}
           <div className="space-y-4">
             <div>
-              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">Fixed Charge</label>
+              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">{t.fixedCharge}</label>
               <input
                 type="number"
                 value={fixedCharge}
                 onChange={(e) => setFixedCharge(e.target.value)}
-                placeholder="e.g. 165000"
+                placeholder={lang === "en" ? "e.g. 165000" : "ఉదా: 165000"}
                 className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFD23F]"
               />
             </div>
 
             <div>
-              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">Number of Trips</label>
+              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">{t.trips}</label>
               <input
                 type="number"
                 value={trips}
                 onChange={(e) => setTrips(e.target.value)}
-                placeholder="e.g. 20"
+                placeholder={lang === "en" ? "e.g. 20" : "ఉదా: 20"}
                 className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFD23F]"
               />
             </div>
 
             <div>
-              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">Petrol Liters</label>
+              <label className="block mb-1 text-sm font-medium text-[#FFD23F]">{t.liters}</label>
               <input
                 type="number"
                 value={liters}
                 onChange={(e) => setLiters(e.target.value)}
-                placeholder="e.g. 600"
+                placeholder={lang === "en" ? "e.g. 600" : "ఉదా: 600"}
                 className="w-full px-3 py-2 rounded-xl bg-white/20 border border-white/30 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FFD23F]"
               />
             </div>
@@ -93,19 +142,19 @@
             onClick={calculate}
             className="w-full mt-6 bg-gradient-to-r from-[#E63946] to-[#FFD23F] text-[#0A3D91] py-2 rounded-xl font-bold text-lg shadow-md hover:scale-[1.02] transition transform duration-200"
           >
-            Calculate
+            {t.button}
           </button>
 
           {/* Results */}
           {result && (
             <div className="mt-6 bg-white/10 p-5 rounded-2xl border border-white/20 space-y-2">
-              <p><span className="font-semibold text-[#FFD23F]">Hamali:</span> ₹{result.hamali.toFixed(2)}</p>
-              <p><span className="font-semibold text-[#FFD23F]">Commission:</span> ₹{result.com.toFixed(2)}</p>
-              <p><span className="font-semibold text-[#FFD23F]">Petrol Cost:</span> ₹{result.petrolCost.toFixed(2)}</p>
-              <p><span className="font-semibold text-[#FFD23F]">Fastag:</span> ₹{result.fastag.toFixed(2)}</p>
-              <p><span className="font-semibold text-[#FFD23F]">Total Expenses:</span> ₹{result.expenses.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">{t.hamali}:</span> ₹{result.hamali.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">{t.commission}:</span> ₹{result.com.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">{t.petrol}:</span> ₹{result.petrolCost.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">{t.fastag}:</span> ₹{result.fastag.toFixed(2)}</p>
+              <p><span className="font-semibold text-[#FFD23F]">{t.expenses}:</span> ₹{result.expenses.toFixed(2)}</p>
               <p className="pt-2 text-lg font-bold">
-                Profit (after EMI):{" "}
+                {t.profit}:{" "}
                 <span className={result.profit >= 0 ? "text-green-400" : "text-red-400"}>
                   ₹{result.profit.toFixed(2)}
                 </span>
