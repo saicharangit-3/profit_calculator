@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profit Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f4fdf4, #dff6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 360px;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: #444;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+    .result p {
+      margin: 8px 0;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Profit Calculator</h2>
+    <label for="fixedCharge">Enter Fixed Charge:</label>
+    <input type="number" id="fixedCharge" placeholder="e.g. 165000" />
+
+    <label for="trips">Enter Number of Trips:</label>
+    <input type="number" id="trips" placeholder="e.g. 20" />
+
+    <label for="liters">Enter Petrol Liters:</label>
+    <input type="number" id="liters" placeholder="e.g. 790" />
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const fixedCharge = parseFloat(document.getElementById("fixedCharge").value);
+      const trips = parseInt(document.getElementById("trips").value);
+      const Km = parseFloat(document.getElementById("liters").value);
+
+      if (isNaN(fixedCharge) || isNaN(trips) || isNaN(Km)) {
+        alert("Please enter all values!");
+        return;
+      }
+
+      const com = fixedCharge * 4 / 100;
+      const coolie = 407;
+      const litrePetrol = 96.59;
+      const petrolCost = Km * litrePetrol;
+      const hamali = trips * coolie;
+      const fastag = 15000;
+      const expenses = petrolCost + hamali + fastag;
+      const emi = 30000;
+      const profit = (fixedCharge - com) - expenses - emi;
+
+      document.getElementById("result").innerHTML = `
+        <p><strong>Hamali:</strong> ₹${hamali.toFixed(2)}</p>
+        <p><strong>Commission:</strong> ₹${com.toFixed(2)}</p>
+        <p><strong>Petrol Cost:</strong> ₹${petrolCost.toFixed(2)}</p>
+        <p><strong>Fastag:</strong> ₹${fastag.toFixed(2)}</p>
+        <p><strong>Total Expenses:</strong> ₹${expenses.toFixed(2)}</p>
+        <p><strong>Profit (after EMI):</strong> <span style="color:${profit>=0?'green':'red'}">₹${profit.toFixed(2)}</span></p>
+      `;
+    }
+  </script>
+</body>
+</html>
